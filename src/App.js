@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 
 const api = {
   key: "aca3d6a6afefbfab909dadcfb8482b59",
-  base: "https://api.openweathermap.org/data/2.5"
+  base: "https://api.openweathermap.org/data/2.5/"
 }
 
 function App() {
-  const dateBuilder = (d) => {
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const [query, setQuery] = useState('');
+  const [weather, setWeather] = useState('');
 
-    let day = days[d.getDay()];
-    let date = d.getDate();
-    let month = months[d.getMonth()];
-    let year = d.getFullYear();
-
-    return `${day} ${date} ${month} ${year}`;
+  const search = (e) => {
+    if (e.key === "Enter") {
+      fetch(`${api.base}weather?q=${query}&appid=${api.key}&units=imperial`)
+        .then(res => res.json())
+        .then(result => {
+          setWeather(result);
+          setQuery('');
+          console.log(result);
+        });
+    }
   }
+
+  const getDate = new Date();
+  const currentDate = getDate.toDateString();
+
   return (
     <div className="App">
       <main>
         <div className="search-box">
-          <input type="text" className="search-bar" placeholder="Search..." />
+          <input type="text" className="search-bar" placeholder="Search..." onChange={e => setQuery(e.target.value)} value={query} onKeyPress={search} />
         </div>
         <div className="location-box">
           <div className="location">NYC, US</div>
-          <div className="date">{dateBuilder(new Date())}</div>
+          <div className="date">{currentDate}</div>
         </div>
         <div className="weather-box">
           <div className="temp">
