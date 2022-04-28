@@ -27,7 +27,7 @@ function App() {
   return (
     <div className={(typeof weather.main != "undefined") 
       ? ((weather.weather[0].main === "Haze") 
-        ? 'app warm' : (weather.weather[0].main == "Rain") ? 'app rain' : (weather.weather[0].main === "Clear") ? 'app clear' : (weather.weather[0].main === "Clouds") ? 'app cloudy' : (weather.weather[0].main === "Mist") ? 'app mist' 
+        ? 'app warm' : (weather.weather[0].main === "Rain") ? 'app rain' : (weather.weather[0].main === "Clear") ? 'app clear' : (weather.weather[0].main === "Clouds") ? 'app cloudy' : (weather.weather[0].main === "Mist") ? 'app mist' 
         : 'app') 
       : 'app'}>
       <main>
